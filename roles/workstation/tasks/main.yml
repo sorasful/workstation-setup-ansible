@@ -1,0 +1,110 @@
+---
+- name: User config
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+
+- name: Local bin
+  file:
+    path: "{{ ansible_env.HOME + '/.local/bin' }} "
+    state: directory
+    recurse: true
+
+- name: Add Yarn GPG key
+  become: true
+  apt_key:
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    state: present
+
+- name: Add Yarn repo
+  become: true
+  apt_repository:
+    repo: deb https://dl.yarnpkg.com/debian/ stable main
+    state: present
+    filename: yarn
+
+- name: Add Kubernetes Key
+  become: true
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+- name: Add Kubernetes repo
+  become: true
+  apt_repository:
+    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+
+- name: Install packages
+  become: yes
+  apt:
+    update_cache: true
+    name:
+    - curl
+    - python3-pip
+    - python3-venv
+    - pandoc
+    - htop
+    - net-tools
+    - tree
+    - httpie
+    - multitail
+    - lolcat
+    - ubuntu-restricted-extras
+    - powerline
+    - gnome-tweaks
+    - nautilus-image-converter
+    - fonts-powerline
+    - yamllint
+    - kubectl
+    - virtualbox
+    - nmap
+    - openvpn 
+    - network-manager-openvpn-gnome
+    - mplayer
+    - gimp
+    - inkscape
+    - pass
+    - libbz2-dev
+    - llvm
+    - python-openssl
+    - libffi-dev
+    - redshift
+    - redshift-gtk
+    - dconf-editor
+    - chromium-browser
+
+
+
+# TODO: wait for Ansible 2.8 and snap command
+- name: Install Slack via Snap
+  become: yes
+  command: snap install --classic slack
+  when: lookup('env','CI') == ""
+
+- name: Download MiniKube
+  get_url:
+    url: "https://storage.googleapis.com/minikube/releases/v{{minikube_version}}/minikube-linux-amd64"
+    dest: /tmp/minikube-linux-amd64
+
+- name: Install MiniKube
+  become: yes
+  command: install /tmp/minikube-linux-amd64 /usr/local/bin/minikube
+
+- name: Install helm
+  become: yes
+  command: snap install --classic helm
+  when: lookup('env','CI') == ""
+
+- name: Set up Python tooling
+  command: python3 -m pip install --user --upgrade pip
+
+- name: Install latest Haskell Stack (and GCC, cpp, libc, perl etc)
+  shell: which stack || curl -sSL https://get.haskellstack.org/ | sh
+  when: stack is not exists
+
+- name: Install GHC etc
+  command: "{{ stack }} setup"
+
+
+- name: Change group of docker to avoid PermissionError
+  shell: usermod -aG docker $USER
+  become: yes

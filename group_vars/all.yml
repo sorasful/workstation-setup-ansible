@@ -1,0 +1,3 @@
+user: nsm
+ohmyzsh_theme: agnoster
+config_dir: "{{ ansible_env.HOME + '/' + '.config' }}"

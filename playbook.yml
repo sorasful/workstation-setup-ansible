@@ -1,0 +1,24 @@
+- hosts: localhost
+  name: Run local installs
+  roles:
+    - workstation
+
+- hosts: localhost
+  name: Run Ansible Galaxy
+  become: true
+  tasks:
+    - local_action: command ansible-galaxy install -r requirements.yml
+
+- hosts: localhost
+  become: yes
+  vars:
+    ohmyzsh_users: [ "{{ user }}" ]
+  roles:
+    - { role: nover.ohmyzsh, ohmyzsh_users: [ "{{ ohmyzsh_user }}" ] }
+    - gantsign.bat
+    - { role: geerlingguy.docker, docker_apt_release_channel: "test" }
+
+
+- hosts: localhost
+  roles:
+    - configure
