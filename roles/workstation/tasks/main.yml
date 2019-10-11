@@ -71,7 +71,10 @@
     - redshift-gtk
     - dconf-editor
     - chromium-browser
-
+    - tlp
+    - powertop
+    - python3.7
+    - virtualenv
 
 
 # TODO: wait for Ansible 2.8 and snap command
@@ -112,4 +115,8 @@
 
 - name: Set zsh as default shell
   shell: chsh -s $(which zsh)
+  become: yes
+
+- name: Install pycharm
+  shell: chmod +x ./pycharm.sh  &&./pycharm.sh
   become: yes
