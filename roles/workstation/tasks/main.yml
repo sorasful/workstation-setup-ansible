@@ -108,3 +108,8 @@
 - name: Change group of docker to avoid PermissionError
   shell: usermod -aG docker $USER
   become: yes
+
+
+- name: Set zsh as default shell
+  shell: chsh -s $(which zsh)
+  become: yes
