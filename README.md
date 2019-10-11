@@ -25,5 +25,6 @@ When all is installed (things to do manually) :
 - Add keyboard shortcuts: 
     - Win + B : browner 
     - Win + R : redshift -O 2500
+- Add pycharm to launcher `gnome-desktop-item-edit ~/Desktop/ --create-new`
 
 Then disconnect to apply changes.
