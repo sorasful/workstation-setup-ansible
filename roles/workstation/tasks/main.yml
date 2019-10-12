@@ -76,6 +76,7 @@
     - python3.7
     - virtualenv
     - gnome-panel
+    - python3.7-dev
 
 
 # TODO: wait for Ansible 2.8 and snap command
