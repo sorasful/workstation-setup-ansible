@@ -1,0 +1,17 @@
+---
+- name: Setup Night Light
+  shell: |
+    gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'start-night-light'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 2000'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Super>r'
+
+- name: Setup SCT
+  apt:
+    pkg:
+      sct
+    state: present
+
+- name: Run SCT
+  shell: |
+    sct 2000

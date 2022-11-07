@@ -1,0 +1,9 @@
+---
+- hosts: local
+  roles:
+    - apt-soft
+    - docker
+    - customization
+    - role: gantsign.oh-my-zsh
+      users:
+      - username: tkrief
