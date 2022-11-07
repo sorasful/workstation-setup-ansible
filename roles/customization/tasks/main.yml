@@ -1,0 +1,11 @@
+---
+- name: Inverse Scrolling
+  shell:
+    cmd: gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
+
+
+- name: Set Open Browser Shortcut
+  shell:  |
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'open-browser'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'firefox'
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Super>b'

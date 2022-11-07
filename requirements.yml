@@ -1,6 +1,0 @@
-- name: nover.ohmyzsh
-  src: nover.ohmyzsh
-- name: gantsign.bat
-  src: gantsign.bat
-- name: geerlingguy.docker
-  src: geerlingguy.docker

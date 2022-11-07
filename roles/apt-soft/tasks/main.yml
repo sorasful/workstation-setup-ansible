@@ -1,0 +1,17 @@
+---
+- name: Installing Common Apt packages
+  become: yes
+  become_method: sudo
+  apt:
+    name:
+    - vim
+    - htop
+    - nano
+    - redshift-gtk
+    - curl
+    - wget
+    - net-tools
+    - tree
+    - nmap
+    - git
+    state: present
